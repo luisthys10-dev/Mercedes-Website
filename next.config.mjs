@@ -4,8 +4,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'assets.mercedes-benz.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'www.mercedes-benz.be',
-        pathname: '/content/dam/**',
+        pathname: '/**',
       },
       {
         protocol: 'https',
@@ -14,7 +19,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: '*.mercedes-benz.com',
+        hostname: 'upload.wikimedia.org',
         pathname: '/**',
       },
     ],
