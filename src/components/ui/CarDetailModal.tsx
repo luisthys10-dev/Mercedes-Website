@@ -1,7 +1,8 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Phone, Calendar, CheckCircle, Zap } from 'lucide-react';
+import Image from 'next/image';
 import { Car } from '@/data/cars';
 
 interface CarDetailModalProps {
@@ -11,6 +12,7 @@ interface CarDetailModalProps {
 
 export default function CarDetailModal({ car, onClose }: CarDetailModalProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [imgError, setImgError] = useState(false);
 
   useEffect(() => {
     if (car && videoRef.current && car.videoSrc) {
@@ -69,19 +71,34 @@ export default function CarDetailModal({ car, onClose }: CarDetailModalProps) {
             </button>
 
             <div className="grid md:grid-cols-2 gap-0">
-              {/* Video */}
-              <div className="relative aspect-video md:aspect-auto min-h-[250px] md:min-h-[400px] overflow-hidden">
+              {/* Media — video if available, else photo, else fallback */}
+              <div className="relative aspect-video md:aspect-auto min-h-[250px] md:min-h-[400px] overflow-hidden bg-[#0a0a0a]">
+                {/* Photo layer — always shown unless video is playing */}
+                {!imgError && (
+                  <Image
+                    src={car.imageSrc}
+                    alt={`${car.name} ${car.subtitle}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                    onError={() => setImgError(true)}
+                    priority
+                  />
+                )}
+
+                {/* Video layer — overlays photo when video is present */}
                 {car.videoSrc ? (
                   <video
                     ref={videoRef}
                     src={car.videoSrc}
                     controls
                     playsInline
-                    className="w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover"
                     aria-label={`${car.name} ${car.subtitle} film`}
                   />
-                ) : (
-                  <div className="no-video-placeholder w-full h-full flex flex-col items-center justify-center gap-4">
+                ) : imgError ? (
+                  /* Fallback if both photo and video fail */
+                  <div className="no-video-placeholder absolute inset-0 flex flex-col items-center justify-center gap-4">
                     <div className="text-white/10 w-24 h-24">
                       <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="100" cy="100" r="95" stroke="white" strokeWidth="4"/>
@@ -91,7 +108,14 @@ export default function CarDetailModal({ car, onClose }: CarDetailModalProps) {
                         <circle cx="100" cy="100" r="8" fill="white"/>
                       </svg>
                     </div>
-                    <p className="text-white/30 text-sm">Nog geen video beschikbaar</p>
+                    <p className="text-white/30 text-sm">Nog geen foto beschikbaar</p>
+                  </div>
+                ) : (
+                  /* Photo-only badge when no video */
+                  <div className="absolute bottom-4 left-4">
+                    <span className="text-xs px-2 py-1" style={{ background: 'rgba(201,168,76,0.2)', color: '#C9A84C', border: '1px solid rgba(201,168,76,0.3)' }}>
+                      Video binnenkort beschikbaar
+                    </span>
                   </div>
                 )}
               </div>

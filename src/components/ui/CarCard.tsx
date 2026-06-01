@@ -2,6 +2,7 @@
 import { useRef, useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Zap } from 'lucide-react';
+import Image from 'next/image';
 import { Car } from '@/data/cars';
 
 interface CarCardProps {
@@ -13,7 +14,7 @@ interface CarCardProps {
 export default function CarCard({ car, index, onOpen }: CarCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showPlay, setShowPlay] = useState(true);
+  const [imgError, setImgError] = useState(false);
 
   const handleMouseEnter = useCallback(() => {
     const video = videoRef.current;
@@ -21,7 +22,6 @@ export default function CarCard({ car, index, onOpen }: CarCardProps) {
     video.currentTime = 0;
     video.play().catch(() => {});
     setIsPlaying(true);
-    setShowPlay(false);
   }, [car.videoSrc]);
 
   const handleMouseLeave = useCallback(() => {
@@ -29,8 +29,8 @@ export default function CarCard({ car, index, onOpen }: CarCardProps) {
     if (!video) return;
     if (!video.ended) {
       video.pause();
-      setIsPlaying(false);
     }
+    setIsPlaying(false);
   }, []);
 
   const handleEnded = useCallback(() => {
@@ -72,38 +72,24 @@ export default function CarCard({ car, index, onOpen }: CarCardProps) {
       onClick={() => onOpen(car)}
       whileHover={{ scale: 1.02 }}
     >
-      {/* Video / Placeholder container */}
-      <div className="relative aspect-video overflow-hidden">
-        {car.videoSrc ? (
-          <>
-            <video
-              ref={videoRef}
-              src={car.videoSrc}
-              muted
-              playsInline
-              preload="none"
-              onEnded={handleEnded}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              aria-label={`${car.name} ${car.subtitle} video`}
-            />
-            {/* Play indicator */}
-            <div className={`absolute top-3 left-3 transition-opacity duration-300 ${showPlay && !isPlaying ? 'opacity-100' : 'opacity-0'}`}>
-              <div className="flex items-center gap-1.5 px-2.5 py-1 text-white/70 text-xs uppercase tracking-wider" style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)' }}>
-                <Play size={10} fill="currentColor" />
-                <span>Beweeg om te spelen</span>
-              </div>
-            </div>
-            {/* Live indicator */}
-            {isPlaying && (
-              <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 text-xs uppercase tracking-wider text-white" style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)' }}>
-                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                <span>Live preview</span>
-              </div>
-            )}
-          </>
+      {/* Media container */}
+      <div className="relative aspect-video overflow-hidden bg-[#0e0e0e]">
+
+        {/* Photo layer — always present as base */}
+        {!imgError ? (
+          <Image
+            src={car.imageSrc}
+            alt={`${car.name} ${car.subtitle}`}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            onError={() => setImgError(true)}
+            priority={index < 6}
+          />
         ) : (
-          <div className="no-video-placeholder w-full h-full flex items-center justify-center relative">
-            <div className="text-white/10 w-20 h-20">
+          /* Fallback: dark gradient with star when image fails */
+          <div className="no-video-placeholder w-full h-full flex items-center justify-center">
+            <div className="text-white/10 w-16 h-16">
               <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="100" cy="100" r="95" stroke="white" strokeWidth="4"/>
                 <line x1="100" y1="5" x2="100" y2="100" stroke="white" strokeWidth="5" strokeLinecap="round"/>
@@ -112,12 +98,46 @@ export default function CarCard({ car, index, onOpen }: CarCardProps) {
                 <circle cx="100" cy="100" r="8" fill="white"/>
               </svg>
             </div>
-            <div className="shimmer absolute inset-0" />
-            <div className="absolute bottom-3 left-3 right-3">
-              <span className="text-xs px-2 py-1" style={{ background: 'rgba(201,168,76,0.2)', color: '#C9A84C', border: '1px solid rgba(201,168,76,0.3)' }}>
-                Video binnenkort beschikbaar
-              </span>
-            </div>
+          </div>
+        )}
+
+        {/* Video layer — overlays the photo, fades in when playing */}
+        {car.videoSrc && (
+          <video
+            ref={videoRef}
+            src={car.videoSrc}
+            muted
+            playsInline
+            preload="none"
+            onEnded={handleEnded}
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+            style={{ opacity: isPlaying ? 1 : 0 }}
+            aria-label={`${car.name} ${car.subtitle} video`}
+          />
+        )}
+
+        {/* Play hint — visible when not playing and has video */}
+        {car.videoSrc && !isPlaying && (
+          <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 text-white/70 text-xs uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(8px)' }}>
+            <Play size={10} fill="currentColor" />
+            <span>Video afspelen</span>
+          </div>
+        )}
+
+        {/* Live indicator */}
+        {isPlaying && (
+          <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 text-xs uppercase tracking-wider text-white" style={{ background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(8px)' }}>
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+            <span>Live preview</span>
+          </div>
+        )}
+
+        {/* No-video badge for CLE Coupé */}
+        {!car.videoSrc && (
+          <div className="absolute bottom-3 left-3">
+            <span className="text-xs px-2 py-1" style={{ background: 'rgba(201,168,76,0.2)', color: '#C9A84C', border: '1px solid rgba(201,168,76,0.3)' }}>
+              Video binnenkort beschikbaar
+            </span>
           </div>
         )}
 
@@ -154,7 +174,7 @@ export default function CarCard({ car, index, onOpen }: CarCardProps) {
         <div className="flex items-center justify-between">
           <span className="text-white/90 text-sm font-medium">{car.price}</span>
           <span
-            className="text-xs uppercase tracking-widest font-medium transition-all duration-300 group-hover:translate-x-1"
+            className="text-xs uppercase tracking-widest font-medium transition-transform duration-300 group-hover:translate-x-1 inline-block"
             style={{ color: '#C9A84C' }}
           >
             Meer info →
