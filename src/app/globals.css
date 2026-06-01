@@ -3,25 +3,184 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --black: #050505;
+  --dark: #0a0a0a;
+  --dark-card: #111111;
+  --dark-border: rgba(255,255,255,0.08);
+  --white: #ffffff;
+  --white-muted: rgba(255,255,255,0.6);
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-muted: rgba(201,168,76,0.3);
+  --red-amg: #CC0000;
+  --blue-eq: #0066CC;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--black);
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+.font-display {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--black);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 2px;
+}
+
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  z-index: 9999;
+  transform-origin: left;
+}
+
+/* Gold line */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Rotating star */
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.rotate-slow {
+  animation: rotate-slow 60s linear infinite;
+}
+
+/* Shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent 20%, rgba(255,255,255,0.08) 50%, transparent 80%);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s infinite;
+}
+
+/* AMG streak */
+@keyframes streak {
+  0% { transform: translateX(-100%) scaleX(0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateX(200%) scaleX(1); opacity: 0; }
+}
+
+.amg-streak {
+  animation: streak 2s ease-in-out infinite;
+}
+
+/* Particle glow */
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-120px) translateX(30px); opacity: 0; }
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Gold gradient text */
+.gold-text {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Video card overlay gradient */
+.video-overlay {
+  background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.4) 50%, transparent 100%);
+}
+
+/* Typewriter cursor */
+.typewriter-cursor::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: var(--gold);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Magnetic button */
+.magnetic-btn {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* EQ glow */
+.eq-glow {
+  box-shadow: 0 0 30px rgba(0, 102, 204, 0.2), 0 0 60px rgba(0, 102, 204, 0.1);
+}
+
+/* AMG glow */
+.amg-glow {
+  box-shadow: 0 0 30px rgba(204, 0, 0, 0.2), 0 0 60px rgba(204, 0, 0, 0.1);
+}
+
+/* No video placeholder */
+.no-video-placeholder {
+  background: radial-gradient(ellipse at center, #1a1a1a 0%, #050505 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .rotate-slow,
+  .shimmer,
+  .amg-streak {
+    animation: none;
   }
 }
