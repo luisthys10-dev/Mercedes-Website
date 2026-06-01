@@ -2,7 +2,6 @@
 import { useRef, useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Zap } from 'lucide-react';
-import Image from 'next/image';
 import { Car } from '@/data/cars';
 
 interface CarCardProps {
@@ -77,14 +76,13 @@ export default function CarCard({ car, index, onOpen }: CarCardProps) {
 
         {/* Photo layer — always present as base */}
         {!imgError ? (
-          <Image
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
             src={car.imageSrc}
             alt={`${car.name} ${car.subtitle}`}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             onError={() => setImgError(true)}
-            priority={index < 6}
+            loading={index < 6 ? 'eager' : 'lazy'}
           />
         ) : (
           /* Fallback: dark gradient with star when image fails */

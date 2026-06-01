@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Phone, Calendar, CheckCircle, Zap } from 'lucide-react';
-import Image from 'next/image';
 import { Car } from '@/data/cars';
 
 interface CarDetailModalProps {
@@ -75,14 +74,12 @@ export default function CarDetailModal({ car, onClose }: CarDetailModalProps) {
               <div className="relative aspect-video md:aspect-auto min-h-[250px] md:min-h-[400px] overflow-hidden bg-[#0a0a0a]">
                 {/* Photo layer — always shown unless video is playing */}
                 {!imgError && (
-                  <Image
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
                     src={car.imageSrc}
                     alt={`${car.name} ${car.subtitle}`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover"
+                    className="absolute inset-0 w-full h-full object-cover"
                     onError={() => setImgError(true)}
-                    priority
                   />
                 )}
 
