@@ -37,7 +37,7 @@ export default function Appointment() {
     }, 1800);
   };
 
-  const inputClass = (field: string) => `w-full px-4 py-3 bg-white/5 border text-white text-sm outline-none transition-all duration-200 focus:border-amber-400/60 placeholder-white/30 ${
+  const inputClass = (field: string) => `w-full px-4 py-3 bg-white/5 border text-white text-sm outline-none transition-all duration-200 focus:border-white/30 placeholder-white/30 ${
     errors[field] ? 'border-red-500/50' : 'border-white/10'
   }`;
 
@@ -48,7 +48,7 @@ export default function Appointment() {
       <div className="max-w-3xl mx-auto relative z-10">
         <div className="text-center mb-14">
           <ScrollReveal>
-            <span className="text-xs uppercase tracking-[0.4em] mb-4 block" style={{ color: '#C9A84C' }}>
+            <span className="text-xs uppercase tracking-[0.4em] mb-4 block text-white/35">
               Groep VDH · Herentals
             </span>
           </ScrollReveal>
@@ -60,7 +60,7 @@ export default function Appointment() {
           <ScrollReveal delay={0.2}>
             <p className="text-white/50">Onze experts staan klaar om u persoonlijk te begeleiden bij uw perfecte Mercedes-Benz.</p>
           </ScrollReveal>
-          <ScrollReveal delay={0.3}><div className="gold-line mt-6 max-w-xs mx-auto" /></ScrollReveal>
+          <ScrollReveal delay={0.3}><div className="mt-6 max-w-xs mx-auto border-t border-white/[0.08]" /></ScrollReveal>
         </div>
 
         <AnimatePresence mode="wait">
@@ -77,16 +77,15 @@ export default function Appointment() {
                 transition={{ type: 'spring', damping: 15 }}
                 className="mb-6 flex justify-center"
               >
-                <div className="w-20 h-20 rounded-full flex items-center justify-center" style={{ background: 'rgba(201,168,76,0.1)', border: '1px solid rgba(201,168,76,0.3)' }}>
-                  <CheckCircle size={40} style={{ color: '#C9A84C' }} />
+                <div className="w-20 h-20 rounded-full flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)' }}>
+                  <CheckCircle size={40} className="text-white/70" />
                 </div>
               </motion.div>
               <h3 className="font-display text-3xl font-bold text-white mb-3">Afspraak Bevestigd!</h3>
               <p className="text-white/60">We contacteren u spoedig via e-mail of telefoon om uw afspraak te bevestigen.</p>
               <button
                 onClick={() => { setSuccess(false); setForm({ name: '', email: '', phone: '', model: '', date: '', message: '' }); }}
-                className="mt-8 px-6 py-3 border text-sm uppercase tracking-widest transition-all"
-                style={{ borderColor: '#C9A84C', color: '#C9A84C' }}
+                className="mt-8 px-6 py-3 border border-white/20 text-white/60 text-sm uppercase tracking-widest transition-all hover:border-white/40 hover:text-white"
               >
                 Nieuwe Afspraak
               </button>
