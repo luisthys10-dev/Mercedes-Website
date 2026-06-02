@@ -1,7 +1,6 @@
 'use client';
 import dynamic from 'next/dynamic';
 import Hero from '@/components/sections/Hero';
-import MarqueeStrip from '@/components/ui/MarqueeStrip';
 import Navbar from '@/components/ui/Navbar';
 import ScrollProgressBar from '@/components/ui/ScrollProgressBar';
 import Contact from '@/components/sections/Contact';
@@ -19,7 +18,6 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <MarqueeStrip />
         <CarShowcase />
         <ElectricSpotlight />
         <AMGSpotlight />
