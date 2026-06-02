@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Phone, Calendar, CheckCircle, Zap } from 'lucide-react';
+import { X, Phone, Calendar, Check } from 'lucide-react';
 import { Car } from '@/data/cars';
 
 interface CarDetailModalProps {
@@ -18,18 +18,12 @@ export default function CarDetailModal({ car, onClose }: CarDetailModalProps) {
       videoRef.current.currentTime = 0;
       videoRef.current.play().catch(() => {});
     }
-    if (car) {
-      document.body.style.overflow = 'hidden';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
+    document.body.style.overflow = car ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
   }, [car]);
 
   useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
+    const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
   }, [onClose]);
@@ -38,79 +32,57 @@ export default function CarDetailModal({ car, onClose }: CarDetailModalProps) {
     <AnimatePresence>
       {car && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
+          className="fixed inset-0 z-[100] flex items-end md:items-center justify-center p-0 md:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
           role="dialog"
           aria-modal="true"
-          aria-label={`${car.name} ${car.subtitle} details`}
+          aria-label={`${car.name} details`}
         >
-          {/* Backdrop */}
-          <div className="absolute inset-0 bg-black/90 backdrop-blur-xl" />
+          <div className="absolute inset-0 bg-black/85 backdrop-blur-lg" />
 
-          {/* Modal */}
           <motion.div
-            className="relative z-10 w-full max-w-5xl max-h-[90vh] overflow-y-auto"
-            style={{ background: '#0e0e0e', border: '1px solid rgba(255,255,255,0.1)' }}
-            initial={{ scale: 0.92, opacity: 0, y: 30 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.92, opacity: 0, y: 30 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="relative z-10 w-full max-w-5xl max-h-[92vh] overflow-y-auto bg-[#0d0d0d] border border-white/[0.08]"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-20 p-2 text-white/50 hover:text-white transition-colors"
+              className="absolute top-4 right-4 z-20 p-2 text-white/30 hover:text-white transition-colors"
               aria-label="Sluiten"
             >
-              <X size={24} />
+              <X size={20} />
             </button>
 
-            <div className="grid md:grid-cols-2 gap-0">
-              {/* Media — video if available, else photo, else fallback */}
-              <div className="relative aspect-video md:aspect-auto min-h-[250px] md:min-h-[400px] overflow-hidden bg-[#0a0a0a]">
-                {/* Photo layer — always shown unless video is playing */}
+            <div className="grid md:grid-cols-2">
+              {/* Media */}
+              <div className="relative aspect-video md:aspect-auto min-h-[240px] md:min-h-[440px] overflow-hidden bg-[#0a0a0a]">
                 {!imgError && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={car.imageSrc}
-                    alt={`${car.name} ${car.subtitle}`}
+                    alt={car.name}
                     className="absolute inset-0 w-full h-full object-cover"
                     onError={() => setImgError(true)}
                   />
                 )}
-
-                {/* Video layer — overlays photo when video is present */}
-                {car.videoSrc ? (
+                {car.videoSrc && (
                   <video
                     ref={videoRef}
                     src={car.videoSrc}
-                    controls
-                    playsInline
+                    controls playsInline
                     className="absolute inset-0 w-full h-full object-cover"
-                    aria-label={`${car.name} ${car.subtitle} film`}
+                    aria-label={`${car.name} video`}
                   />
-                ) : imgError ? (
-                  /* Fallback if both photo and video fail */
-                  <div className="no-video-placeholder absolute inset-0 flex flex-col items-center justify-center gap-4">
-                    <div className="text-white/10 w-24 h-24">
-                      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="100" cy="100" r="95" stroke="white" strokeWidth="4"/>
-                        <line x1="100" y1="5" x2="100" y2="100" stroke="white" strokeWidth="5" strokeLinecap="round"/>
-                        <line x1="100" y1="100" x2="177" y2="158" stroke="white" strokeWidth="5" strokeLinecap="round"/>
-                        <line x1="100" y1="100" x2="23" y2="158" stroke="white" strokeWidth="5" strokeLinecap="round"/>
-                        <circle cx="100" cy="100" r="8" fill="white"/>
-                      </svg>
-                    </div>
-                    <p className="text-white/30 text-sm">Nog geen foto beschikbaar</p>
-                  </div>
-                ) : (
-                  /* Photo-only badge when no video */
+                )}
+                {!car.videoSrc && !imgError && (
                   <div className="absolute bottom-4 left-4">
-                    <span className="text-xs px-2 py-1" style={{ background: 'rgba(201,168,76,0.2)', color: '#C9A84C', border: '1px solid rgba(201,168,76,0.3)' }}>
+                    <span className="text-[11px] text-white/40 bg-black/60 px-2 py-1">
                       Video binnenkort beschikbaar
                     </span>
                   </div>
@@ -118,62 +90,52 @@ export default function CarDetailModal({ car, onClose }: CarDetailModalProps) {
               </div>
 
               {/* Info */}
-              <div className="p-8 flex flex-col justify-between">
+              <div className="p-8 md:p-10 flex flex-col gap-6">
                 <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    {car.category === 'Electric' && <Zap size={14} style={{ color: '#0066CC' }} />}
-                    <span className="text-xs uppercase tracking-widest text-white/40">{car.category}</span>
-                  </div>
-                  <h2 className="font-display text-4xl font-bold text-white mb-1">{car.name}</h2>
-                  <p className="text-xl font-medium mb-2" style={{ color: '#C9A84C' }}>{car.subtitle}</p>
-                  <p className="text-white/50 italic mb-6">&ldquo;{car.tagline}&rdquo;</p>
+                  <p className="text-white/30 text-[10px] uppercase tracking-widest mb-2">{car.category}</p>
+                  <h2 className="font-display text-3xl font-medium text-white mb-1">{car.name}</h2>
+                  <p className="text-white/50 text-lg">{car.subtitle}</p>
+                  <p className="text-white/30 text-sm italic mt-2">{car.tagline}</p>
+                </div>
 
-                  <div className="gold-line mb-6" />
+                <div className="border-t border-white/[0.07]" />
 
-                  {/* Price */}
-                  <p className="text-2xl font-bold text-white mb-6">{car.price}</p>
+                <div>
+                  <p className="text-white text-xl font-medium mb-5">{car.price}</p>
 
-                  {/* Highlights */}
                   <div className="space-y-2 mb-6">
                     {car.highlights.map((h, i) => (
-                      <div key={i} className="flex items-center gap-3">
-                        <CheckCircle size={14} style={{ color: '#C9A84C' }} />
-                        <span className="text-white/80 text-sm">{h}</span>
+                      <div key={i} className="flex items-start gap-3">
+                        <Check size={13} className="text-white/40 mt-0.5 flex-shrink-0" />
+                        <span className="text-white/65 text-sm">{h}</span>
                       </div>
                     ))}
                   </div>
 
-                  {/* Specs grid */}
-                  <div className="grid grid-cols-2 gap-3 mb-8">
+                  <div className="grid grid-cols-2 gap-2">
                     {car.specs.map((spec, i) => (
-                      <div
-                        key={i}
-                        className="p-3"
-                        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
-                      >
-                        <div className="text-xs text-white/40 uppercase tracking-wider mb-1">{spec.label}</div>
-                        <div className="text-white font-semibold">{spec.value}</div>
+                      <div key={i} className="p-3 bg-white/[0.03] border border-white/[0.05]">
+                        <p className="text-[10px] text-white/30 uppercase tracking-wider mb-1">{spec.label}</p>
+                        <p className="text-white text-sm font-medium">{spec.value}</p>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* CTA */}
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col sm:flex-row gap-2 mt-auto">
                   <a
                     href="#afspraak"
                     onClick={onClose}
-                    className="flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold uppercase tracking-widest text-black transition-all duration-300 hover:opacity-90"
-                    style={{ background: 'linear-gradient(135deg, #C9A84C, #E8C97A)' }}
+                    className="flex items-center justify-center gap-2 px-5 py-3 text-sm font-medium bg-white text-black hover:bg-white/90 transition-colors"
                   >
-                    <Calendar size={16} />
-                    Afspraak Maken
+                    <Calendar size={15} />
+                    Afspraak maken
                   </a>
                   <a
                     href="tel:+3214848484"
-                    className="flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium border border-white/20 text-white/80 hover:border-white/50 hover:text-white transition-all duration-300"
+                    className="flex items-center justify-center gap-2 px-5 py-3 text-sm border border-white/15 text-white/70 hover:text-white hover:border-white/35 transition-all"
                   >
-                    <Phone size={16} />
+                    <Phone size={15} />
                     Bel ons
                   </a>
                 </div>

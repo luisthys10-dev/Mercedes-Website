@@ -172,7 +172,7 @@ export default function Appointment() {
                             ? 'text-black font-semibold'
                             : 'border border-white/10 text-white/50 hover:border-white/30 hover:text-white/80'
                         }`}
-                        style={timeSlot === slot ? { background: 'linear-gradient(135deg, #C9A84C, #E8C97A)' } : {}}
+                        style={timeSlot === slot ? { background: 'white', color: 'black' } : {}}
                       >
                         {slot}
                       </button>
@@ -195,8 +195,7 @@ export default function Appointment() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 text-sm font-semibold uppercase tracking-widest text-black transition-all duration-300 hover:opacity-90 disabled:opacity-60 flex items-center justify-center gap-2"
-                  style={{ background: 'linear-gradient(135deg, #C9A84C, #E8C97A)' }}
+                  className="w-full py-4 text-sm font-semibold uppercase tracking-widest bg-white text-black transition-all duration-300 hover:bg-white/90 disabled:opacity-60 flex items-center justify-center gap-2"
                 >
                   {loading ? (
                     <><Loader2 size={16} className="animate-spin" /> Verwerken...</>

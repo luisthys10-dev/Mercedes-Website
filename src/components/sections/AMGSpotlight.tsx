@@ -1,84 +1,47 @@
 'use client';
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import { cars } from '@/data/cars';
 import ScrollReveal from '../ui/ScrollReveal';
-import MercedesStar from '../ui/MercedesStar';
 
 const amgModels = cars.filter(c => c.category === 'AMG').concat(cars.filter(c => c.slug === 'sl-roadster'));
 
 const stats = [
-  { value: '843pk', label: 'Max vermogen' },
-  { value: '2,9s', label: 'Snelste 0-100' },
-  { value: '325', label: 'Top km/h' },
+  { value: '843 pk', label: 'Max. vermogen' },
+  { value: '2,9 s', label: '0 – 100 km/h' },
+  { value: '325 km/h', label: 'Topsnelheid' },
   { value: 'V8', label: 'Biturbo motor' },
 ];
 
 export default function AMGSpotlight() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
-  const starY = useTransform(scrollYProgress, [0, 1], ['10%', '-10%']);
-
   return (
-    <section id="amg" ref={ref} className="relative py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #1a0000 0%, #050505 60%, #150000 100%)' }}>
-      {/* AMG streaks */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute h-px"
-            style={{
-              width: '30%',
-              top: `${15 + i * 18}%`,
-              left: 0,
-              background: 'linear-gradient(90deg, transparent, #CC0000, transparent)',
-            }}
-            animate={{ x: ['-100%', '400%'] }}
-            transition={{
-              duration: 2.5,
-              repeat: Infinity,
-              delay: i * 0.7,
-              ease: 'easeInOut',
-            }}
-          />
-        ))}
-      </div>
+    <section id="amg" className="py-24 px-8 md:px-12 border-t border-white/[0.06]" style={{ background: '#050505' }}>
+      <div className="max-w-7xl mx-auto">
 
-      <motion.div className="absolute top-1/2 left-0 -translate-y-1/2" style={{ y: starY }}>
-        <MercedesStar size={500} opacity={0.03} color="#CC0000" />
-      </motion.div>
-
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
+        {/* Header */}
+        <div className="mb-16">
           <ScrollReveal>
-            <span className="text-xs uppercase tracking-[0.4em] mb-4 block" style={{ color: '#CC0000' }}>
-              Mercedes-AMG
-            </span>
+            <p className="text-white/35 text-xs uppercase tracking-[0.3em] mb-3">Mercedes-AMG</p>
           </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <h2 className="font-display text-5xl md:text-7xl font-bold text-white mb-4">
-              Born On The<br />
-              <span style={{ color: '#ff4444' }}>Racetrack</span>
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={0.2}>
-            <p className="text-white/50 text-lg max-w-2xl mx-auto">
-              AMG — Automotive Performance. Elke vezel ademt motorsport. Elke seconde telt.
-            </p>
-          </ScrollReveal>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <ScrollReveal delay={0.1}>
+              <h2 className="font-display text-4xl md:text-5xl font-medium text-white">
+                Born on the racetrack
+              </h2>
+            </ScrollReveal>
+            <ScrollReveal delay={0.15}>
+              <p className="text-white/40 text-sm max-w-xs leading-relaxed">
+                AMG — pure rijdynamiek, hoge prestaties en een onverwisselbare identiteit.
+              </p>
+            </ScrollReveal>
+          </div>
         </div>
 
         {/* Stats */}
-        <ScrollReveal delay={0.3}>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+        <ScrollReveal delay={0.1}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/[0.05] mb-16">
             {stats.map((stat, i) => (
-              <div
-                key={i}
-                className="text-center p-6 amg-glow"
-                style={{ background: 'rgba(204,0,0,0.06)', border: '1px solid rgba(204,0,0,0.2)' }}
-              >
-                <div className="font-display text-4xl font-bold mb-1" style={{ color: '#ff4444' }}>{stat.value}</div>
-                <div className="text-xs uppercase tracking-widest text-white/50">{stat.label}</div>
+              <div key={i} className="bg-[#050505] p-8 text-center">
+                <div className="font-display text-3xl font-medium text-white mb-2">{stat.value}</div>
+                <div className="text-xs text-white/35 uppercase tracking-widest">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -87,42 +50,33 @@ export default function AMGSpotlight() {
         {/* AMG Models */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {amgModels.map((car, i) => (
-            <ScrollReveal key={car.id} delay={i * 0.12}>
-              <div
-                className="relative overflow-hidden group cursor-pointer"
-                style={{ background: 'rgba(204,0,0,0.04)', border: '1px solid rgba(204,0,0,0.15)' }}
-              >
-                <div className="aspect-video relative overflow-hidden">
+            <ScrollReveal key={car.id} delay={i * 0.08}>
+              <div className="group cursor-pointer">
+                <div className="aspect-video relative overflow-hidden bg-[#0f0f0f] mb-4">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={car.imageSrc}
+                    alt={car.name}
+                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-[1.02] transition-all duration-500"
+                  />
                   {car.videoSrc && (
                     <video
                       src={car.videoSrc}
-                      muted
-                      playsInline
-                      loop
-                      autoPlay
-                      className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-500"
+                      muted playsInline loop autoPlay
+                      className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-80 transition-opacity duration-500"
                       preload="none"
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1a0000] via-transparent to-transparent" />
+                  <div className="card-overlay absolute inset-0" />
                   <div className="absolute top-3 left-3">
-                    <span
-                      className="text-[10px] uppercase tracking-widest px-2.5 py-1 font-bold text-white"
-                      style={{ background: 'rgba(204,0,0,0.8)' }}
-                    >
+                    <span className="text-[10px] font-semibold uppercase tracking-widest text-white bg-black/60 backdrop-blur-sm px-2 py-1">
                       AMG
                     </span>
                   </div>
                 </div>
-                <div className="p-5">
-                  <h3 className="font-display text-xl font-bold text-white">{car.name}</h3>
-                  <p className="text-sm" style={{ color: '#ff4444' }}>{car.subtitle}</p>
-                  <div className="mt-3 pt-3" style={{ borderTop: '1px solid rgba(204,0,0,0.2)' }}>
-                    <div className="text-sm text-white/70">{car.specs[0]?.value} · {car.specs[1]?.value}</div>
-                    <div className="text-xs text-white/40">{car.price}</div>
-                  </div>
-                  <div className="mt-1 h-0.5 bg-gradient-to-r from-red-600 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                </div>
+                <h3 className="text-white text-sm font-medium">{car.name}</h3>
+                <p className="text-white/40 text-xs mt-0.5">{car.subtitle}</p>
+                <p className="text-white/25 text-xs mt-1">{car.specs[0]?.value} · {car.specs[1]?.value}</p>
               </div>
             </ScrollReveal>
           ))}

@@ -5,7 +5,6 @@ import { cars, categories, CarCategory } from '@/data/cars';
 import CarCard from '../ui/CarCard';
 import CarDetailModal from '../ui/CarDetailModal';
 import { Car } from '@/data/cars';
-import MercedesStar from '../ui/MercedesStar';
 import ScrollReveal from '../ui/ScrollReveal';
 
 export default function CarShowcase() {
@@ -17,48 +16,39 @@ export default function CarShowcase() {
     : cars.filter(c => c.category === activeCategory);
 
   return (
-    <section id="modellen" className="relative py-24 px-6" style={{ background: '#070707' }}>
-      {/* Background star */}
-      <MercedesStar
-        size={800}
-        opacity={0.02}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-      />
+    <section id="modellen" className="py-24 px-8 md:px-12" style={{ background: '#070707' }}>
+      <div className="max-w-7xl mx-auto">
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section header */}
-        <div className="text-center mb-16">
+        {/* Header */}
+        <div className="mb-14">
           <ScrollReveal>
-            <span className="text-xs uppercase tracking-[0.4em] mb-4 block" style={{ color: '#C9A84C' }}>
-              Het Volledige Gamma
-            </span>
+            <p className="text-white/35 text-xs uppercase tracking-[0.3em] mb-3">Het volledige gamma</p>
           </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <h2 className="font-display text-5xl md:text-7xl font-bold text-white mb-4">
-              Ontdek Elk Model
-            </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={0.2}>
-            <p className="text-white/50 text-lg max-w-2xl mx-auto">
-              Van compacte hatchback tot supercar — beweeg over een model om de video te starten
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={0.3}>
-            <div className="gold-line mt-8 max-w-xs mx-auto" />
-          </ScrollReveal>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <ScrollReveal delay={0.1}>
+              <h2 className="font-display text-4xl md:text-5xl font-medium text-white">
+                Alle modellen
+              </h2>
+            </ScrollReveal>
+            <ScrollReveal delay={0.15}>
+              <p className="text-white/40 text-sm max-w-xs leading-relaxed">
+                Beweeg over een model om de video te bekijken. Klik voor meer informatie.
+              </p>
+            </ScrollReveal>
+          </div>
         </div>
 
-        {/* Category filter */}
-        <ScrollReveal delay={0.2}>
-          <div className="flex flex-wrap gap-2 justify-center mb-12">
+        {/* Filter tabs */}
+        <ScrollReveal delay={0.1}>
+          <div className="flex flex-wrap gap-1 mb-12 border-b border-white/[0.06] pb-6">
             {categories.map((cat) => (
               <button
                 key={cat.value}
                 onClick={() => setActiveCategory(cat.value)}
-                className={`px-4 py-2 text-xs uppercase tracking-widest font-medium transition-all duration-300 ${
+                className={`px-4 py-2 text-xs tracking-wide transition-all duration-200 ${
                   activeCategory === cat.value
-                    ? 'bg-white text-black'
-                    : 'border border-white/20 text-white/60 hover:border-white/50 hover:text-white'
+                    ? 'bg-white text-black font-medium'
+                    : 'text-white/40 hover:text-white/80'
                 }`}
               >
                 {cat.label}
@@ -67,36 +57,31 @@ export default function CarShowcase() {
           </div>
         </ScrollReveal>
 
-        {/* Cars grid */}
+        {/* Grid */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            transition={{ duration: 0.25 }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.04]"
           >
             {filteredCars.map((car, index) => (
-              <CarCard
-                key={car.id}
-                car={car}
-                index={index}
-                onOpen={setSelectedCar}
-              />
+              <div key={car.id} className="bg-[#070707]">
+                <CarCard car={car} index={index} onOpen={setSelectedCar} />
+              </div>
             ))}
           </motion.div>
         </AnimatePresence>
 
-        {/* No results */}
         {filteredCars.length === 0 && (
-          <div className="text-center py-20 text-white/30">
-            Geen modellen gevonden in deze categorie
+          <div className="text-center py-20 text-white/25 text-sm">
+            Geen modellen in deze categorie
           </div>
         )}
       </div>
 
-      {/* Detail modal */}
       <CarDetailModal car={selectedCar} onClose={() => setSelectedCar(null)} />
     </section>
   );
