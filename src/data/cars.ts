@@ -17,8 +17,8 @@ export interface Car {
 
 export const cars: Car[] = [
   {
-    id: 1, slug: 'amg-gt-4-deurs', name: 'AMG GT', subtitle: '4-Deurs Coupé',
-    category: 'AMG', videoSrc: '/videos/01-amg-gt-4-deurs.mp4',
+    id: 1, slug: 'amg-gt-4deurs', name: 'AMG GT', subtitle: '4-Deurs Coupé',
+    category: 'AMG', videoSrc: '/videos/modellen/1.mp4',
     imageSrc: '/images/modellen/amg-gt-4deurs.jpg',
     price: 'Vanaf €145.000', tagline: 'Racebrein. Luxehart.',
     highlights: ['4.0L V8 Biturbo', 'tot 843 pk (E Performance)', 'AWD 4MATIC+', 'AMG SPEEDSHIFT TCT 9G'],
@@ -27,7 +27,7 @@ export const cars: Car[] = [
   },
   {
     id: 2, slug: 'amg-gt-coupe', name: 'AMG GT', subtitle: 'Coupé',
-    category: 'AMG', videoSrc: '/videos/02-amg-gt-coupe.mp4',
+    category: 'AMG', videoSrc: '/videos/modellen/2.mp4',
     imageSrc: '/images/modellen/amg-gt-coupe.jpg',
     price: 'Vanaf €175.000', tagline: 'Pure motorsport DNA.',
     highlights: ['4.0L V8 Biturbo', 'Achterwielsturing', 'AMG Active Ride Control', 'Carbon pakket'],
@@ -36,7 +36,7 @@ export const cars: Car[] = [
   },
   {
     id: 3, slug: 'sl-roadster', name: 'SL', subtitle: 'Roadster',
-    category: 'Cabrio', videoSrc: '/videos/03-sl-roadster.mp4',
+    category: 'Cabrio', videoSrc: '/videos/modellen/3.mp4',
     imageSrc: '/images/modellen/sl-roadster.jpg',
     price: 'Vanaf €135.000', tagline: 'Vrijheid heeft een naam.',
     highlights: ['Elektrisch soft-top dak', 'AMG uitvoering beschikbaar', '2+2 zitplaatsen', 'Magno lak opties'],
@@ -45,7 +45,7 @@ export const cars: Car[] = [
   },
   {
     id: 4, slug: 'g-klasse', name: 'G-Klasse', subtitle: 'SUV',
-    category: 'SUV', videoSrc: '/videos/04-g-klasse.mp4',
+    category: 'SUV', videoSrc: '/videos/modellen/4.mp4',
     imageSrc: '/images/modellen/g-klasse.jpg',
     price: 'Vanaf €145.000', tagline: 'Legende. Onbedwingbaar.',
     highlights: ['Iconisch G-Klasse design', '3 differentiaalsloten', 'Ladder frame chassis', 'AMG G 63 beschikbaar'],
@@ -54,7 +54,7 @@ export const cars: Car[] = [
   },
   {
     id: 5, slug: 'eqs-suv', name: 'EQS SUV', subtitle: 'Elektrische SUV',
-    category: 'Electric', videoSrc: '/videos/05-eqs-suv.mp4',
+    category: 'Electric', videoSrc: '/videos/modellen/5.mp4',
     imageSrc: '/images/modellen/eqs-suv.jpg',
     price: 'Vanaf €110.000', tagline: 'De toekomst rijdt stil.',
     highlights: ['tot 544 pk', 'tot 660 km WLTP bereik', 'Hyperscreen optioneel', '7-zitter beschikbaar'],
@@ -63,7 +63,7 @@ export const cars: Car[] = [
   },
   {
     id: 6, slug: 'eqs', name: 'EQS', subtitle: 'Elektrische Berline',
-    category: 'Electric', videoSrc: '/videos/06-eqs.mp4',
+    category: 'Electric', videoSrc: '/videos/modellen/6.mp4',
     imageSrc: '/images/modellen/eqs.jpg',
     price: 'Vanaf €105.000', tagline: 'Elektrisch. Superieur.',
     highlights: ['MBUX Hyperscreen', 'tot 783 km WLTP bereik', 'Luchtvering standaard', 'OTA updates'],
@@ -72,7 +72,7 @@ export const cars: Car[] = [
   },
   {
     id: 7, slug: 's-klasse', name: 'S-Klasse', subtitle: 'Berline',
-    category: 'Sedan', videoSrc: '/videos/07-s-klasse.mp4',
+    category: 'Sedan', videoSrc: '/videos/modellen/7.mp4',
     imageSrc: '/images/modellen/s-klasse.jpg',
     price: 'Vanaf €115.000', tagline: 'Het beste of niets.',
     highlights: ['MBUX met AI', 'Achteraxel besturing', 'Executive Rear Seat Package', 'Augmented Reality HUD'],
@@ -81,7 +81,7 @@ export const cars: Car[] = [
   },
   {
     id: 8, slug: 'gls', name: 'GLS', subtitle: 'Full-size SUV',
-    category: 'SUV', videoSrc: '/videos/08-gls.mp4',
+    category: 'SUV', videoSrc: '/videos/modellen/8.mp4',
     imageSrc: '/images/modellen/gls.jpg',
     price: 'Vanaf €105.000', tagline: 'S-Klasse van de SUVs.',
     highlights: ['7-zitter standaard', 'E-ACTIVE BODY CONTROL', 'tot 612 pk (AMG)', 'Rear Axle Steering'],
@@ -90,7 +90,7 @@ export const cars: Car[] = [
   },
   {
     id: 9, slug: 'gle-suv', name: 'GLE SUV', subtitle: 'SUV',
-    category: 'SUV', videoSrc: '/videos/09-gle-suv.mp4',
+    category: 'SUV', videoSrc: '/videos/modellen/9.mp4',
     imageSrc: '/images/modellen/gle-suv.jpg',
     price: 'Vanaf €75.000', tagline: 'Avontuur met klasse.',
     highlights: ['48V mild-hybrid systeem', 'E-ACTIVE BODY CONTROL', 'tot 510 pk (AMG)', '7-zitter optioneel'],
@@ -99,7 +99,7 @@ export const cars: Car[] = [
   },
   {
     id: 10, slug: 'gle-coupe', name: 'GLE Coupé', subtitle: 'Sport SUV',
-    category: 'SUV', videoSrc: '/videos/10-gle-coupe.mp4',
+    category: 'SUV', videoSrc: '/videos/modellen/10.mp4',
     imageSrc: '/images/modellen/gle-coupe.jpg',
     price: 'Vanaf €85.000', tagline: 'SUV. Coupé. Ongrijpbaar.',
     highlights: ['Coupé silhouet', 'AMG Line standaard', 'Panoramadak beschikbaar', 'Adaptive damping'],
@@ -108,7 +108,7 @@ export const cars: Car[] = [
   },
   {
     id: 11, slug: 'glc-suv', name: 'GLC SUV', subtitle: 'SUV',
-    category: 'SUV', videoSrc: '/videos/11-glc-suv.mp4',
+    category: 'SUV', videoSrc: '/videos/modellen/11.mp4',
     imageSrc: '/images/modellen/glc-suv.jpg',
     price: 'Vanaf €60.000', tagline: 'Veelzijdigheid perfected.',
     highlights: ['Plug-in hybride beschikbaar', 'MBUX 2e generatie', 'E-ACTIVE BODY CONTROL', 'Rear Axle Steering'],
@@ -117,7 +117,7 @@ export const cars: Car[] = [
   },
   {
     id: 12, slug: 'glc-coupe', name: 'GLC Coupé', subtitle: 'Sport SUV',
-    category: 'SUV', videoSrc: '/videos/12-glc-coupe.mp4',
+    category: 'SUV', videoSrc: '/videos/modellen/12.mp4',
     imageSrc: '/images/modellen/glc-coupe.jpg',
     price: 'Vanaf €65.000', tagline: 'Stijl zonder compromis.',
     highlights: ['Coupé roofline', 'AMG aandrijflijn beschikbaar', 'Sportiever onderstel', '64-kleurige sfeerverlichting'],
@@ -126,7 +126,7 @@ export const cars: Car[] = [
   },
   {
     id: 13, slug: 'glb', name: 'GLB', subtitle: 'Compacte SUV',
-    category: 'SUV', videoSrc: '/videos/13-glb.mp4',
+    category: 'SUV', videoSrc: '/videos/modellen/13.mp4',
     imageSrc: '/images/modellen/glb.jpg',
     price: 'Vanaf €47.000', tagline: 'Groot in klein formaat.',
     highlights: ['7-zitter optioneel', 'Vierkante SUV proporties', 'AMG Line beschikbaar', 'Gezinsvriendelijk'],
@@ -135,7 +135,7 @@ export const cars: Car[] = [
   },
   {
     id: 14, slug: 'gla', name: 'GLA', subtitle: 'Compacte SUV',
-    category: 'SUV', videoSrc: '/videos/14-gla.mp4',
+    category: 'SUV', videoSrc: '/videos/modellen/14.mp4',
     imageSrc: '/images/modellen/gla.jpg',
     price: 'Vanaf €42.000', tagline: 'Urban. Agile. Jouw stijl.',
     highlights: ['Compacte afmetingen', 'Hoge zitpositie', 'MBUX infotainment', 'AMG GLA 45 S beschikbaar'],
@@ -144,7 +144,7 @@ export const cars: Car[] = [
   },
   {
     id: 15, slug: 'eqe-suv', name: 'EQE SUV', subtitle: 'Elektrische SUV',
-    category: 'Electric', videoSrc: '/videos/15-eqe-suv.mp4',
+    category: 'Electric', videoSrc: '/videos/modellen/15.mp4',
     imageSrc: '/images/modellen/eqe-suv.jpg',
     price: 'Vanaf €80.000', tagline: 'Elektrisch avontuur.',
     highlights: ['tot 408 pk', 'tot 590 km WLTP bereik', 'Panorama schuifdak', 'AMG EQE SUV beschikbaar'],
@@ -153,7 +153,7 @@ export const cars: Car[] = [
   },
   {
     id: 16, slug: 'eqe', name: 'EQE', subtitle: 'Elektrische Berline',
-    category: 'Electric', videoSrc: '/videos/16-eqe.mp4',
+    category: 'Electric', videoSrc: '/videos/modellen/16.mp4',
     imageSrc: '/images/modellen/eqe.jpg',
     price: 'Vanaf €72.000', tagline: 'Elektrisch prestige.',
     highlights: ['tot 617 km WLTP bereik', 'MBUX Hyperscreen optioneel', 'Rear Axle Steering', 'OTA software updates'],
@@ -162,7 +162,7 @@ export const cars: Car[] = [
   },
   {
     id: 17, slug: 'e-klasse-break', name: 'E-Klasse', subtitle: 'Break',
-    category: 'Break', videoSrc: '/videos/17-e-klasse-break.mp4',
+    category: 'Break', videoSrc: '/videos/modellen/17.mp4',
     imageSrc: '/images/modellen/e-klasse-break.jpg',
     price: 'Vanaf €65.000', tagline: 'Ruimte voor elke droom.',
     highlights: ['Grootste kofferbak in klasse', 'Plug-in hybride beschikbaar', 'Digitaal instrumentenpaneel', 'Luchtvering optioneel'],
@@ -171,7 +171,7 @@ export const cars: Car[] = [
   },
   {
     id: 18, slug: 'e-klasse-berline', name: 'E-Klasse', subtitle: 'Berline',
-    category: 'Sedan', videoSrc: '/videos/18-e-klasse-berline.mp4',
+    category: 'Sedan', videoSrc: '/videos/modellen/18.mp4',
     imageSrc: '/images/modellen/e-klasse-berline.jpg',
     price: 'Vanaf €62.000', tagline: 'Intelligentie. Herontdekt.',
     highlights: ['3 schermen in dashboard', 'Rear Axle Steering', 'Plug-in hybride tot 100km EV', 'ChatGPT integratie'],
@@ -189,7 +189,7 @@ export const cars: Car[] = [
   },
   {
     id: 20, slug: 'cle-cabrio', name: 'CLE Cabrio', subtitle: 'Cabrio',
-    category: 'Cabrio', videoSrc: '/videos/19-cle-cabrio.mp4',
+    category: 'Cabrio', videoSrc: '/videos/modellen/20.mp4',
     imageSrc: '/images/modellen/cle-cabrio.jpg',
     price: 'Vanaf €72.000', tagline: 'De wind. Jouw vrijheid.',
     highlights: ['Elektrisch soft-top', 'Uitklapbare windscherm', 'AIRCAP winddeflector', 'AMG Line beschikbaar'],
@@ -198,7 +198,7 @@ export const cars: Car[] = [
   },
   {
     id: 21, slug: 'c-klasse-break', name: 'C-Klasse', subtitle: 'Break',
-    category: 'Break', videoSrc: '/videos/20-c-klasse-break.mp4',
+    category: 'Break', videoSrc: '/videos/modellen/21.mp4',
     imageSrc: '/images/modellen/c-klasse-break.jpg',
     price: 'Vanaf €52.000', tagline: 'Slim. Ruim. Dynamisch.',
     highlights: ['Plug-in hybride standaard', '100 km EV bereik', 'Lichtgewicht aluminium', 'MBUX 2e generatie'],
@@ -207,7 +207,7 @@ export const cars: Car[] = [
   },
   {
     id: 22, slug: 'c-klasse-berline', name: 'C-Klasse', subtitle: 'Berline',
-    category: 'Sedan', videoSrc: '/videos/21-c-klasse-berline.mp4',
+    category: 'Sedan', videoSrc: '/videos/modellen/22.mp4',
     imageSrc: '/images/modellen/c-klasse-berline.jpg',
     price: 'Vanaf €49.000', tagline: 'S-Klasse genen. C-Klasse prijs.',
     highlights: ['S-Klasse geïnspireerd design', '11,9" portret scherm', 'Plug-in hybride', 'AMG C 63 S beschikbaar'],
@@ -216,7 +216,7 @@ export const cars: Car[] = [
   },
   {
     id: 23, slug: 'cla-coupe', name: 'CLA Coupé', subtitle: 'Coupé',
-    category: 'Coupe', videoSrc: '/videos/22-cla-coupe.mp4',
+    category: 'Coupe', videoSrc: '/videos/modellen/23.mp4',
     imageSrc: '/images/modellen/cla-coupe.jpg',
     price: 'Vanaf €42.000', tagline: 'Sportief tot in elk detail.',
     highlights: ['Nieuwe generatie 2024', 'Elektrische versie beschikbaar', 'Laagste Cw-waarde in segment', 'MBUX 3e generatie'],
@@ -225,7 +225,7 @@ export const cars: Car[] = [
   },
   {
     id: 24, slug: 'a-klasse', name: 'A-Klasse', subtitle: 'Hatchback',
-    category: 'Hatchback', videoSrc: '/videos/23-a-klasse.mp4',
+    category: 'Hatchback', videoSrc: '/videos/modellen/24.mp4',
     imageSrc: '/images/modellen/a-klasse.jpg',
     price: 'Vanaf €35.000', tagline: 'Alles begint hier.',
     highlights: ['MBUX met stembesturing', 'AMG A 45 S tot 421 pk', 'Compacte premium hatchback', '7 of 8-traps automaat'],
@@ -234,7 +234,7 @@ export const cars: Car[] = [
   },
   {
     id: 25, slug: 'cla-shooting-brake', name: 'CLA', subtitle: 'Shooting Brake',
-    category: 'Break', videoSrc: '/videos/24-cla-shooting-brake.mp4',
+    category: 'Break', videoSrc: '/videos/modellen/25.mp4',
     imageSrc: '/images/modellen/cla-shooting-brake.jpg',
     price: 'Vanaf €44.000', tagline: 'Stijl die ruimte geeft.',
     highlights: ['Shooting brake design', 'Groot panoramadak', 'AMG Line beschikbaar', 'Elektrische versie beschikbaar'],
